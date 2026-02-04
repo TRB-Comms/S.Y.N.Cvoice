@@ -1,0 +1,69 @@
+brand: TRB / SYNCstate
+tone_rule_footer: Invitational. Non-urgent. Body-led. Shame-free.
+always_say:
+  state: A temporary condition, not an identity
+  signal: Information, not a problem
+  capacity: What’s possible right now
+  regulation: Support without force
+  integration: Carrying regulation into life
+never_say:
+- Optimize
+- Hack
+- Hustle
+- Fix yourself
+substitution_map:
+  Improve: Support
+  Control: Regulate
+  Fix: Listen / Respond
+  Push: Allow
+  Discipline: Consistency with care
+  Productivity: Sustainable output
+  Performance: Presence
+labels:
+  positive_behavior:
+  - state_based
+  - signal_based
+  - capacity_honoring
+  - regulation_focused
+  - integration_oriented
+  risk:
+  - performance_framing
+  - hustle_language
+  - shame_framing
+  - urgency_pressure
+  - fixing_language
+  - identity_labeling
+  - absolute_language
+  - medical_claims_risk
+  - privacy_assumption
+  - exclusionary_language
+  - low_clarity
+  - hard_language
+routing:
+  confidence_override:
+    if_rule_triggered:
+    - never_say
+    - urgency_pressure
+    - hustle_language
+    - fixing_language
+    - shame_framing
+    max_bucket: medium
+  language_compliance:
+    min_positive_behaviors_for_pass: 1
+    if_zero: Ask 2 clarifying questions + suggest substitutions
+examples:
+  buttons_ctas:
+  - bad: Start Optimization
+    good: Begin Regulation
+  - bad: Fix Your State
+    good: Support Your State
+  - bad: Push Through
+    good: Move Gently
+  system_messages:
+  - bad: Your input shows dysregulation
+    good: Your system is sending signals
+  - bad: You need to calm down
+    good: Support regulation at your pace
+  errors:
+  - bad: Something went wrong
+    good: Let’s pause and reset together
