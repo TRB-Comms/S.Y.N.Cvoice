@@ -1,0 +1,79 @@
+id,created_at,source_title,channel,context,text,tone_labels,risk_labels,is_synthetic,window_sentences,notes
+TRB_C_0001,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Start Optimization,direct,hustle_language,True,1,❌ negative example
+TRB_C_0002,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Begin Regulation,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0003,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Fix Your State,direct|state_based,fixing_language,True,1,❌ negative example
+TRB_C_0004,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support Your State,reflective|regulation_focused|state_based|warm,,True,1,✅ positive example
+TRB_C_0005,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Push Through,direct,performance_framing,True,1,❌ negative example
+TRB_C_0006,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Move Gently,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0007,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Boost Productivity,direct,performance_framing,True,1,❌ negative example
+TRB_C_0008,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support Sustainable Output,reflective|regulation_focused|warm,performance_framing,True,1,✅ positive example
+TRB_C_0009,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Improve Performance,direct,performance_framing,True,1,❌ negative example
+TRB_C_0010,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support Presence,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0011,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Control Your Mood,direct,performance_framing,True,1,❌ negative example
+TRB_C_0012,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support Regulation at Your Pace,capacity_honoring|reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0013,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Hack Your Routine,direct,hustle_language,True,1,❌ negative example
+TRB_C_0014,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Build Consistency with Care,warm|reflective,,True,1,✅ positive example
+TRB_C_0015,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Optimize Your Day,direct,hustle_language,True,1,❌ negative example
+TRB_C_0016,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Meet Your Capacity Today,capacity_honoring|reflective|warm,,True,1,✅ positive example
+TRB_C_0017,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Fix Your Dysregulation,direct,fixing_language,True,1,❌ negative example
+TRB_C_0018,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support Regulation Without Force,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0019,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Push for Results,direct,performance_framing,True,1,❌ negative example
+TRB_C_0020,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Allow What’s Possible Right Now,capacity_honoring|reflective|warm,urgency_pressure,True,1,✅ positive example
+TRB_C_0021,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Your input shows dysregulation.,direct|signal_based,performance_framing,True,1,❌ negative example
+TRB_C_0022,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Your system is sending signals.,reflective|signal_based|warm,,True,1,✅ positive example
+TRB_C_0023,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You need to calm down.,direct,fixing_language,True,1,❌ negative example
+TRB_C_0024,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support regulation at your pace.,capacity_honoring|reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0025,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You must do this now.,direct,urgency_pressure,True,1,❌ negative example
+TRB_C_0026,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You can choose what fits right now.,capacity_honoring|reflective|warm,urgency_pressure,True,1,✅ positive example
+TRB_C_0027,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Your state is a problem to fix.,direct|state_based,fixing_language,True,1,❌ negative example
+TRB_C_0028,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Your current state is valid information.,reflective|signal_based|state_based|warm,,True,1,✅ positive example
+TRB_C_0029,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You are disconnected.,direct|state_based,identity_labeling,True,1,❌ negative example
+TRB_C_0030,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,This resembles disconnection — does that fit?,warm|reflective,,True,1,✅ positive example
+TRB_C_0031,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You are overloaded.,direct|state_based,identity_labeling,True,1,❌ negative example
+TRB_C_0032,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,This resembles overload — does that fit?,warm|reflective,,True,1,✅ positive example
+TRB_C_0033,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You failed to regulate.,direct|regulation_focused,performance_framing,True,1,❌ negative example
+TRB_C_0034,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Your system is asking for support.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0035,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Try harder to focus.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0036,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Honor your capacity and move gently.,capacity_honoring|reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0037,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Don’t ignore this.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0038,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,"If it fits, you can listen to this signal.",reflective|signal_based|warm,,True,1,✅ positive example
+TRB_C_0039,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,We know exactly how you feel.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0040,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Here are a few possibilities — you choose what fits.,capacity_honoring|reflective|warm,,True,1,✅ positive example
+TRB_C_0041,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Something went wrong.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0042,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Let’s pause and reset together.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0043,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Error: invalid input.,direct|signal_based,performance_framing,True,1,❌ negative example
+TRB_C_0044,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,"Let’s slow down and try again, at your pace.",capacity_honoring|reflective|warm,,True,1,✅ positive example
+TRB_C_0045,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,We couldn’t process that.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0046,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,That didn’t land — want to try a different way?,warm|reflective,,True,1,✅ positive example
+TRB_C_0047,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,System failure.,direct,shame_framing,True,1,❌ negative example
+TRB_C_0048,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,We’ll pause here and support a reset.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0049,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Improve your discipline.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0050,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Practice consistency with care.,warm|reflective,,True,1,✅ positive example
+TRB_C_0051,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Control your emotions.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0052,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support regulation with care.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0053,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Fix what’s broken.,direct,fixing_language,True,1,❌ negative example
+TRB_C_0054,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Listen and respond to what’s present.,warm|reflective,,True,1,✅ positive example
+TRB_C_0055,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Push through the discomfort.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0056,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Allow gentle support for this moment.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0057,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Hustle to keep up.,direct,hustle_language,True,1,❌ negative example
+TRB_C_0058,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Honor your capacity and pace.,capacity_honoring|reflective|warm,,True,1,✅ positive example
+TRB_C_0059,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Optimize your nervous system.,direct,hustle_language,True,1,❌ negative example
+TRB_C_0060,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support regulation without force.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0061,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Hack your mindset.,direct,hustle_language,True,1,❌ negative example
+TRB_C_0062,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Notice what your system is signaling.,warm|reflective,,True,1,✅ positive example
+TRB_C_0063,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Crush your goals.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0064,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Move toward what’s possible today.,capacity_honoring|reflective|warm,,True,1,✅ positive example
+TRB_C_0065,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Be more productive.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0066,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support sustainable output.,reflective|regulation_focused|warm,performance_framing,True,1,✅ positive example
+TRB_C_0067,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Perform at your best.,direct,performance_framing,True,1,❌ negative example
+TRB_C_0068,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Support presence and steadiness.,reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0069,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,What’s wrong with you? Fix yourself.,direct,fixing_language|hustle_language|shame_framing,True,1,❌ negative example
+TRB_C_0070,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Nothing is wrong with you. Let’s listen to your signals.,reflective|signal_based|warm,,True,1,✅ positive example
+TRB_C_0071,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Stop being lazy. Push through.,direct,performance_framing|shame_framing,True,1,❌ negative example
+TRB_C_0072,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,Meet your capacity today. Move gently.,capacity_honoring|reflective|regulation_focused|warm,,True,1,✅ positive example
+TRB_C_0073,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,"If you don’t do this now, you’ll fail.",direct,urgency_pressure,True,1,❌ negative example
+TRB_C_0074,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You can choose a next step when it fits.,warm|reflective,,True,1,✅ positive example
+TRB_C_0075,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You’re overreacting. Calm down.,direct,fixing_language,True,1,❌ negative example
+TRB_C_0076,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,This feels like a strong signal — support regulation at your pace.,capacity_honoring|reflective|regulation_focused|signal_based|warm,,True,1,✅ positive example
+TRB_C_0077,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,You must get it together.,direct,urgency_pressure,True,1,❌ negative example
+TRB_C_0078,2026-02-04,Contrastive Training (TRB Language Rules),Internal,TRB / SYNCstate language guardrails,"If it helps, we can pause and reset together.",reflective|regulation_focused|warm,,True,1,✅ positive example
