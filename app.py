@@ -137,24 +137,23 @@ def main():
     st.write("")
     render_kv_flags("Behavior flags (TRB principles detected)", bf, icon_ok="✅", icon_bad="➕")
 
-    # Guidance
+# Guidance
 st.divider()
-rewrite_guidance = out.get("rewrite_guidance", "")
+rewrite_guidance = out.get("rewrite_guidance", None)
 
 if rewrite_guidance:
     st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
 
-    # If it's a string, display it as a block (no per-character looping)
     if isinstance(rewrite_guidance, str):
         st.info(rewrite_guidance)
 
-    # If it's a list of bullets, display bullets
     elif isinstance(rewrite_guidance, list):
         for g in rewrite_guidance:
             if g:
                 st.write(f"- {g}")
-    # Substitution suggestions
-subs = out.get("substitution_suggestions", [])
+
+# Substitution suggestions
+subs = out.get("substitution_suggestions", None)
 
 if subs:
     st.divider()
