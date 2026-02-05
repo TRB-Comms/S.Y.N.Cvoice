@@ -152,24 +152,12 @@ if rewrite_guidance:
             if g:
                 st.write(f"- {g}")
 
-# Substitution suggestions
-subs = out.get("substitution_suggestions", None)
-
-if subs:
-    st.divider()
-    st.write("**Gentler language alternatives**")
-
-    if isinstance(subs, list):
-        for s in subs:
-            st.write(f"- {s}")
     else:
-        st.info(str(subs))
-
-    # Fallback (just in case)
-    else:
+        # Fallback for unexpected types
         st.write(str(rewrite_guidance))
-    else:
-        st.caption("No guidance returned.")
+
+else:
+    st.caption("No guidance returned.")
 
     # Final gate
     st.write("**Final gate question**")
