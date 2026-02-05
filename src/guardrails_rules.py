@@ -28,31 +28,59 @@ SUBSTITUTIONS = _load_json("trb_guardrails.json")
 
 # ---- Public API expected by predict.py ----
 
-def rule_flags(text: str) -> list:
-    """Return soft rule violations found in text."""
-    flags = []
-    blocked = RULES.get("never_say", [])
-    for word in blocked:
-        if word.lower() in text.lower():
-            flags.append(f"blocked_term:{word}")
-    return flags
+def rule_flags(text: str) -> dict:
+    """
+    Return dict of rule violations: {flag_name: True/False}
+    """
+    out = {}
+    never = RULES.get("never_say", []) or []
+    lower = (text or "").lower()
 
-def behavior_flags(text: str) -> list:
-    """Detect urgency / pressure language."""
-    pressure_terms = ["must", "now", "fix", "urgent", "immediately"]
-    return [t for t in pressure_terms if t in text.lower()]
+    for term in never:
+        key = f"blocked_term:{term}"
+        out[key] = term.lower() in lower
 
-def guidance(text: str) -> str:
-    """High-level tone guidance."""
-    if rule_flags(text) or behavior_flags(text):
+    return out
+
+
+def behavior_flags(text: str) -> dict:
+    """
+    Return dict of behavior signals (soft violations): {flag_name: True/False}
+    """
+    lower = (text or "").lower()
+    pressure_terms = ["must", "now", "fix", "urgent", "immediately", "push through", "should"]
+
+    out = {}
+    for term in pressure_terms:
+        key = f"pressure:{term}"
+        out[key] = term in lower
+
+    return out
+
+
+def guidance(rule_flag_dict: dict) -> str:
+    """
+    Predict.py calls guidance(rf) — so accept rf dict (not text).
+    """
+    if any(rule_flag_dict.values()):
         return "Consider revising language to be state-based, invitational, and choice-led."
     return "Language appears aligned with S.Y.N.Cvoice™ guardrails."
 
-def substitution_suggestions(text: str) -> dict:
-    """Suggest softer alternatives for flagged terms."""
-    suggestions = {}
-    replacements = SUBSTITUTIONS.get("substitutions", {})
-    for bad, good in replacements.items():
-        if bad.lower() in text.lower():
-            suggestions[bad] = good
-    return suggestions
+
+def substitution_suggestions(text: str) -> str:
+    """
+    Return a human-readable suggestion block (string) because predict.py concatenates strings:
+      guidance(rf) + substitution_suggestions(text)
+    """
+    lower = (text or "").lower()
+    substitutions = (SUBSTITUTIONS.get("substitutions", {}) or {})
+    hits = []
+
+    for bad, good in substitutions.items():
+        if bad.lower() in lower:
+            hits.append(f"Replace **{bad}** → {good}")
+
+    if not hits:
+        return ""
+
+    return "\nSuggested substitutions:\n- " + "\n- ".join(hits) + "\n"
