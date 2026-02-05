@@ -58,13 +58,19 @@ def behavior_flags(text: str) -> dict:
     return out
 
 
-def guidance(rule_flag_dict: dict) -> str:
-    """
-    Predict.py calls guidance(rf) — so accept rf dict (not text).
-    """
+def guidance(rule_flag_dict: dict):
     if any(rule_flag_dict.values()):
-        return "Consider revising language to be state-based, invitational, and choice-led."
-    return "Language appears aligned with S.Y.N.Cvoice™ guardrails."
+        return [
+            "Use **State** language (temporary) instead of identity language.",
+            "Name **Signals** as information, not flaws or symptoms.",
+            "Honor **Capacity** (offer options, remove urgency).",
+            "Support **Regulation** without force (gentle, body-led).",
+            "Add **Integration** (how to carry steadiness into the next moment).",
+        ]
+    return [
+        "Language feels invitational, shame-free, and choice-led.",
+        "Optional: add one capacity line (e.g., “if it fits today”).",
+    ]
 
 
 def substitution_suggestions(text: str) -> str:
