@@ -1,12 +1,13 @@
 import json
 import joblib
+
 import numpy as np
 import torch
 
-from preprocess import normalize_text
-from model import MLP
-from guardrails_rules import rule_flags, behavior_flags, guidance, substitution_suggestions
-from utils import abs_path
+from src.preprocess import normalize_text
+from src.model import MLP
+from src.guardrails_rules import rule_flags, behavior_flags, guidance, substitution_suggestions
+from src.utils import abs_path
 
 def load_artifacts():
     vectorizer = joblib.load(abs_path("models", "vectorizer.joblib"))
