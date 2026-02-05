@@ -76,26 +76,16 @@ def predict(text: str, threshold=0.5):
 
     tones, risks = split_labels(picked)
 
-    # Inject rule flags as high-confidence risks
-    for k, v in rf.items():
-        if v and k not in [r[0] for r in risks]:
-            risks.append((k, 0.99))
-    risks.sort(key=lambda x: x[1], reverse=True)
 
-    # Inject behavior flags as tone tags
-    for k, v in bf.items():
-        if v and k not in [t[0] for t in tones]:
-            tones.append((k, 0.95))
-    tones.sort(key=lambda x: x[1], reverse=True)
-
-    return {
-        "confidence_bucket": bucket,
-        "confidence_score": conf,
-        "tone_tags": tones[:8],
-        "risk_flags": risks[:10],
-        "behavior_flags": bf,
-        "rule_flags": rf,
-        "rewrite_guidance": guidance(rf) + substitution_suggestions(text),
-        "routing": route_message(bucket, rule_triggered, behaviors_count),
-        "final_gate_question": "Does this copy help someone listen to themselves without pressure?",
-    }
+return {
+    "confidence_bucket": bucket,
+    "confidence_score": conf,
+    "tone_tags": tones[:8],
+    "risk_flags": risks[:10],
+    "behavior_flags": bf,
+    "rule_flags": rf,
+    "rewrite_guidance": guidance(rf),
+    "substitution_suggestions": substitution_suggestions(text),
+    "routing": route_message(bucket, rule_triggered, behaviors_count),
+    "final_gate_question": "Does this copy help someone listen to themselves without pressure?",
+}
