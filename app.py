@@ -142,7 +142,7 @@ st.divider()
 rewrite_guidance = out.get("rewrite_guidance", "")
 
 if rewrite_guidance:
-    st.write("**Rewrite guidance (non-directive suggestions)**")
+    st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
 
     # If it's a string, display it as a block (no per-character looping)
     if isinstance(rewrite_guidance, str):
@@ -153,6 +153,18 @@ if rewrite_guidance:
         for g in rewrite_guidance:
             if g:
                 st.write(f"- {g}")
+    # Substitution suggestions
+subs = out.get("substitution_suggestions", [])
+
+if subs:
+    st.divider()
+    st.write("**Gentler language alternatives**")
+
+    if isinstance(subs, list):
+        for s in subs:
+            st.write(f"- {s}")
+    else:
+        st.info(str(subs))
 
     # Fallback (just in case)
     else:
