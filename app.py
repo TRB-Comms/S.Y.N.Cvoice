@@ -26,29 +26,48 @@ def load_guardrails_yaml() -> str:
         return f"(Guardrails YAML not found or unreadable: {e})"
 
 
-def render_kv_flags(title: str, flags: dict, icon_ok="✅", icon_bad="⚠️"):
+def render_bool_flags(title: str, flags: dict, true_icon="✅", false_icon="▫️"):
     """
     Renders boolean flags cleanly.
+    Shows ✅ for True (flag triggered), ▫️ for False.
     """
     st.write(f"**{title}**")
     if not flags:
         st.caption("No flags available.")
         return
 
-    cols = st.columns(2)
+    # Only show triggered flags first, but still list all for transparency
     items = list(flags.items())
+    items.sort(key=lambda kv: (not bool(kv[1]), kv[0]))  # True first, then alpha
 
+    cols = st.columns(2)
     half = (len(items) + 1) // 2
     left_items = items[:half]
     right_items = items[half:]
 
     with cols[0]:
         for k, v in left_items:
-            st.write(f"{icon_bad if v else icon_ok} `{k}`")
+            st.write(f"{true_icon if v else false_icon} `{k}`")
 
     with cols[1]:
         for k, v in right_items:
-            st.write(f"{icon_bad if v else icon_ok} `{k}`")
+            st.write(f"{true_icon if v else false_icon} `{k}`")
+
+
+def render_top_pairs(title: str, pairs: list, k: int = 5, empty_msg: str = "None detected."):
+    """
+    Renders a list of (name, score) as neat bullets.
+    """
+    st.write(f"**{title}**")
+    if not pairs:
+        st.caption(empty_msg)
+        return
+
+    for name, score in pairs[:k]:
+        try:
+            st.write(f"- {name} ({float(score):.2f})")
+        except Exception:
+            st.write(f"- {name}")
 
 
 def main():
@@ -102,7 +121,7 @@ def main():
     with colB:
         conf = out.get("confidence_score", None)
         if conf is not None:
-            st.metric("Confidence score", f"{conf:.2f}")
+            st.metric("Confidence score", f"{float(conf):.2f}")
         else:
             st.metric("Confidence score", "n/a")
 
@@ -110,54 +129,63 @@ def main():
     st.write("**Routing**")
     st.info(out.get("routing", "n/a"))
 
-    # Tone tags
-    st.write("**Tone behaviors + tags**")
+    # Tone tags (pretty)
     tone_tags = out.get("tone_tags", [])
-    if tone_tags:
-        st.json(tone_tags)
-    else:
-        st.caption("No tone tags above threshold.")
+    render_top_pairs(
+        "Tone behaviors + tags",
+        tone_tags,
+        k=6,
+        empty_msg="No tone tags above threshold.",
+    )
 
-    # Risks
-    st.write("**Risk flags**")
+    # Risks (pretty)
     risk_flags = out.get("risk_flags", [])
+    st.write("")
     if risk_flags:
         st.error("Potential risks detected (review before publishing).")
-        st.json(risk_flags)
+        render_top_pairs("Risk flags", risk_flags, k=8, empty_msg="")
     else:
-        st.success("No rule-based risks detected.")
+        st.success("No model-based risk flags detected.")
 
-    # Flags (rule + behavior)
+    # Deterministic flags (rule + behavior)
     st.divider()
 
-    rf = out.get("rule_flags", {})
-    bf = out.get("behavior_flags", {})
+    rf = out.get("rule_flags", {}) or {}
+    bf = out.get("behavior_flags", {}) or {}
 
-    render_kv_flags("Rule flags (deterministic checks)", rf)
+    render_bool_flags("Rule flags (deterministic checks)", rf, true_icon="✅", false_icon="▫️")
     st.write("")
-    render_kv_flags("Behavior flags (TRB principles detected)", bf, icon_ok="✅", icon_bad="➕")
+    render_bool_flags("Behavior flags (pressure / urgency signals)", bf, true_icon="✅", false_icon="▫️")
 
-# Guidance
-st.divider()
-rewrite_guidance = out.get("rewrite_guidance", None)
+    # Guidance
+    st.divider()
+    rewrite_guidance = out.get("rewrite_guidance", None)
 
-if rewrite_guidance:
-    st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
+    if rewrite_guidance:
+        st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
 
-    if isinstance(rewrite_guidance, str):
-        st.info(rewrite_guidance)
-
-    elif isinstance(rewrite_guidance, list):
-        for g in rewrite_guidance:
-            if g:
-                st.write(f"- {g}")
-
+        if isinstance(rewrite_guidance, str):
+            st.info(rewrite_guidance)
+        elif isinstance(rewrite_guidance, list):
+            for g in rewrite_guidance:
+                if g:
+                    st.write(f"- {g}")
+        else:
+            st.info(str(rewrite_guidance))
     else:
-        # Fallback for unexpected types
-        st.write(str(rewrite_guidance))
+        st.caption("No guidance returned.")
 
-else:
-    st.caption("No guidance returned.")
+    # Substitution suggestions (optional, if your predict.py now returns this)
+    subs = out.get("substitution_suggestions", None)
+    if subs:
+        st.write("")
+        st.write("**Gentler language alternatives**")
+        if isinstance(subs, list):
+            for s in subs:
+                if s:
+                    st.write(f"- {s}")
+        else:
+            st.info(str(subs))
 
     # Final gate
     st.write("**Final gate question**")
