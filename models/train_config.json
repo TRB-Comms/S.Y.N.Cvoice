@@ -1,0 +1,8 @@
+{
+  "hidden_dim": 256,
+  "dropout": 0.2,
+  "conf_high": 0.65,
+  "conf_med": 0.45,
+  "threshold": 0.5,
+  "trained_on": "/content/project/S.Y.N.Cvoice-main/data/trb_training_278_rows_combined.csv"
+}
