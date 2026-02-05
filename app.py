@@ -138,12 +138,25 @@ def main():
     render_kv_flags("Behavior flags (TRB principles detected)", bf, icon_ok="✅", icon_bad="➕")
 
     # Guidance
-    st.divider()
-    guidance = out.get("rewrite_guidance", [])
-    if guidance:
-        st.write("**Rewrite guidance (non-directive suggestions)**")
-        for g in guidance:
-            st.write(f"- {g}")
+st.divider()
+rewrite_guidance = out.get("rewrite_guidance", "")
+
+if rewrite_guidance:
+    st.write("**Rewrite guidance (non-directive suggestions)**")
+
+    # If it's a string, display it as a block (no per-character looping)
+    if isinstance(rewrite_guidance, str):
+        st.info(rewrite_guidance)
+
+    # If it's a list of bullets, display bullets
+    elif isinstance(rewrite_guidance, list):
+        for g in rewrite_guidance:
+            if g:
+                st.write(f"- {g}")
+
+    # Fallback (just in case)
+    else:
+        st.write(str(rewrite_guidance))
     else:
         st.caption("No guidance returned.")
 
