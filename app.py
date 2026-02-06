@@ -157,23 +157,27 @@ def main():
     st.write("")
     render_bool_flags("Behavior flags (pressure / urgency signals)", bf, true_icon="✅", false_icon="▫️")
 
-    # Guidance
+        # Guidance
     st.divider()
-    rewrite_guidance = out.get("rewrite_guidance", None)
+
+    rewrite_guidance = out.get("rewrite_guidance", [])
+    subs = out.get("substitution_suggestions", [])
 
     if rewrite_guidance:
         st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
-
-        if isinstance(rewrite_guidance, str):
-            st.info(rewrite_guidance)
-        elif isinstance(rewrite_guidance, list):
-            for g in rewrite_guidance:
-                if g:
-                    st.write(f"- {g}")
-        else:
-            st.info(str(rewrite_guidance))
+        for g in rewrite_guidance:
+            if g:
+                st.write(f"- {g}")
     else:
         st.caption("No guidance returned.")
+
+    if subs:
+        st.write("**Substitution suggestions (TRB language map)**")
+        for s in subs:
+            if s:
+                st.write(f"- {s}")
+    else:
+        st.caption("No substitutions detected.")
 
     # Substitution suggestions
 subs = out.get("substitution_suggestions", [])
