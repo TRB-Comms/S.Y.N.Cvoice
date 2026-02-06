@@ -98,7 +98,14 @@ def main():
 
     c1, c2, c3 = st.columns([1, 1, 1])
     with c1:
-        threshold = st.slider("Model strictness", 0.20, 0.90, 0.50, 0.05)
+        threshold = st.slider(
+    "Signal sensitivity",
+    0.20,
+    0.90,
+    0.50,
+    0.05,
+    help="Controls how much evidence S.Y.N.Cvoice™ requires before surfacing tone signals or risks. Lower = more sensitive. Higher = more conservative."
+)
     with c2:
         show_raw = st.checkbox("Show raw JSON", value=False)
     with c3:
@@ -121,10 +128,19 @@ def main():
 
     # Summary
     st.subheader("Result")
+    st.caption(
+    "S.Y.N.Cvoice™ does not judge quality or intent. "
+    "It reflects tone signals, pressure markers, and choice availability. "
+    "When confidence is low, the system intentionally pauses rather than forcing guidance."
+)
 
     colA, colB = st.columns(2)
     with colA:
-        st.metric("Confidence bucket", out.get("confidence_bucket", "n/a"))
+        st.metric(
+    "Confidence bucket",
+    out.get("confidence_bucket", "n/a"),
+    help="Confidence reflects strength of tone signals — not correctness or value judgment."
+)
     with colB:
         conf = out.get("confidence_score", None)
         st.metric("Confidence score", f"{float(conf):.2f}" if conf is not None else "n/a")
