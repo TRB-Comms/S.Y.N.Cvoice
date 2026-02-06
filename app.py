@@ -76,8 +76,8 @@ def main():
 
     # Optional: show logo inside the app
     st.image(
-        abs_path("assets", "syncvoice-logo.png"),
-        width=80,
+    str(abs_path("assets", "syncvoice-logo.png")),
+    width=80,
     )
 
     st.title(APP_TITLE)
