@@ -4,7 +4,6 @@ import streamlit as st
 from src.predict import predict
 from src.utils import abs_path
 
-
 # ----------------------------
 # S.Y.N.Cvoice™ — Streamlit App
 # ----------------------------
@@ -36,7 +35,6 @@ def render_bool_flags(title: str, flags: dict, true_icon="✅", false_icon="▫�
         st.caption("No flags available.")
         return
 
-    # Only show triggered flags first, but still list all for transparency
     items = list(flags.items())
     items.sort(key=lambda kv: (not bool(kv[1]), kv[0]))  # True first, then alpha
 
@@ -91,7 +89,7 @@ def main():
 
     c1, c2, c3 = st.columns([1, 1, 1])
     with c1:
-        threshold = st.slider("Model threshold", 0.20, 0.90, 0.50, 0.05)
+        threshold = st.slider("Model strictness", 0.20, 0.90, 0.50, 0.05)
     with c2:
         show_raw = st.checkbox("Show raw JSON", value=False)
     with c3:
@@ -120,16 +118,13 @@ def main():
         st.metric("Confidence bucket", out.get("confidence_bucket", "n/a"))
     with colB:
         conf = out.get("confidence_score", None)
-        if conf is not None:
-            st.metric("Confidence score", f"{float(conf):.2f}")
-        else:
-            st.metric("Confidence score", "n/a")
+        st.metric("Confidence score", f"{float(conf):.2f}" if conf is not None else "n/a")
 
     # Routing
     st.write("**Routing**")
     st.info(out.get("routing", "n/a"))
 
-    # Tone tags (pretty)
+    # Tone tags
     tone_tags = out.get("tone_tags", [])
     render_top_pairs(
         "Tone behaviors + tags",
@@ -138,7 +133,7 @@ def main():
         empty_msg="No tone tags above threshold.",
     )
 
-    # Risks (pretty)
+    # Risks
     risk_flags = out.get("risk_flags", [])
     st.write("")
     if risk_flags:
@@ -149,7 +144,6 @@ def main():
 
     # Deterministic flags (rule + behavior)
     st.divider()
-
     rf = out.get("rule_flags", {}) or {}
     bf = out.get("behavior_flags", {}) or {}
 
@@ -157,11 +151,11 @@ def main():
     st.write("")
     render_bool_flags("Behavior flags (pressure / urgency signals)", bf, true_icon="✅", false_icon="▫️")
 
-        # Guidance
+    # Guidance + substitutions
     st.divider()
 
-    rewrite_guidance = out.get("rewrite_guidance", [])
-    subs = out.get("substitution_suggestions", [])
+    rewrite_guidance = out.get("rewrite_guidance", []) or []
+    subs = out.get("substitution_suggestions", []) or []
 
     if rewrite_guidance:
         st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
@@ -179,29 +173,11 @@ def main():
     else:
         st.caption("No substitutions detected.")
 
-    # Substitution suggestions
-subs = out.get("substitution_suggestions", [])
-if subs:
-    st.write("**Substitution suggestions (TRB language map)**")
-    for s in subs:
-        if s:
-            st.write(f"- {s}")
-            
-    # Substitution suggestions (optional, if your predict.py now returns this)
-    subs = out.get("substitution_suggestions", None)
-    if subs:
-        st.write("")
-        st.write("**Gentler language alternatives**")
-        if isinstance(subs, list):
-            for s in subs:
-                if s:
-                    st.write(f"- {s}")
-        else:
-            st.info(str(subs))
-
     # Final gate
     st.write("**Final gate question**")
-    st.markdown(f"> {out.get('final_gate_question', 'Does this copy help someone listen to themselves without pressure?')}")
+    st.markdown(
+        f"> {out.get('final_gate_question', 'Does this copy help someone listen to themselves without pressure?')}"
+    )
 
     # Optional raw JSON
     if show_raw:
