@@ -67,15 +67,20 @@ def render_top_pairs(title: str, pairs: list, k: int = 5, empty_msg: str = "None
         except Exception:
             st.write(f"- {name}")
 
-
 def main():
     st.set_page_config(
-    page_title=APP_TITLE,
-    page_icon=str(abs_path("assets", "syncvoice-logo.png")),
-    layout="centered",
-)
+        page_title=APP_TITLE,
+        page_icon=str(abs_path("assets", "syncvoice-logo.png")),
+        layout="centered",
+    )
 
-    st.title(f"🧠 {APP_TITLE}")
+    # Optional: show logo inside the app
+    st.image(
+        abs_path("assets", "syncvoice-logo.png"),
+        width=80,
+    )
+
+    st.title(APP_TITLE)
     st.caption(APP_TAGLINE)
     st.markdown(f"**Tone Rule:** {TONE_FOOTER}")
 
