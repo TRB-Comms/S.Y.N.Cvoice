@@ -175,6 +175,14 @@ def main():
     else:
         st.caption("No guidance returned.")
 
+    # Substitution suggestions
+subs = out.get("substitution_suggestions", [])
+if subs:
+    st.write("**Substitution suggestions (TRB language map)**")
+    for s in subs:
+        if s:
+            st.write(f"- {s}")
+            
     # Substitution suggestions (optional, if your predict.py now returns this)
     subs = out.get("substitution_suggestions", None)
     if subs:
