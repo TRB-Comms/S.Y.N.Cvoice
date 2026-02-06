@@ -73,14 +73,16 @@ def guidance(rule_flag_dict: dict):
     ]
 
 
-def substitution_suggestions(text: str) -> str:
-    """
-    Return a human-readable suggestion block (string) because predict.py concatenates strings:
-      guidance(rf) + substitution_suggestions(text)
-    """
+def substitution_suggestions(text: str) -> list[str]:
     lower = (text or "").lower()
     substitutions = (SUBSTITUTIONS.get("substitutions", {}) or {})
     hits = []
+
+    for bad, good in substitutions.items():
+        if bad.lower() in lower:
+            hits.append(f"Replace **{bad}** → {good}")
+
+    return hits
 
     for bad, good in substitutions.items():
         if bad.lower() in lower:
