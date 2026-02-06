@@ -9,7 +9,7 @@ from src.utils import abs_path
 # ----------------------------
 
 APP_TITLE = "S.Y.N.Cvoice™"
-APP_TAGLINE = "A tone-and-safety layer that helps language stay state-based, shame-free and choice-led."
+APP_TAGLINE = "Tomera Rodgers created a tone-and-safety layer that helps language stay state-based, shame-free and choice-led."
 TONE_FOOTER = "Invitational. Non-urgent. Body-led. Shame-free."
 
 
