@@ -97,15 +97,25 @@ def main():
     )
 
     c1, c2, c3 = st.columns([1, 1, 1])
-    with c1:
-        threshold = st.slider(
-    "Signal sensitivity",
-    0.20,
-    0.90,
-    0.50,
-    0.05,
-    help="Controls how much evidence S.Y.N.Cvoice™ requires before surfacing tone signals or risks. Lower = more sensitive. Higher = more conservative."
-)
+
+with c1:
+    threshold = st.slider(
+        "Signal sensitivity",
+        0.20,
+        0.90,
+        0.50,
+        0.05,
+        help=(
+            "Controls how much evidence S.Y.N.Cvoice™ requires before surfacing tone signals or guidance. "
+            "Lower sensitivity surfaces subtle signals. Higher sensitivity means the system speaks less "
+            "and only when signals are very clear. Guardrails always apply."
+        )
+    )
+
+    st.caption(
+        "Higher sensitivity does not relax rules. "
+        "It simply requires clearer signals before S.Y.N.Cvoice™ offers guidance."
+    )
     with c2:
         show_raw = st.checkbox("Show raw JSON", value=False)
     with c3:
