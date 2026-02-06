@@ -4,12 +4,13 @@ import streamlit as st
 from src.predict import predict
 from src.utils import abs_path
 
+
 # ----------------------------
 # S.Y.N.Cvoice™ — Streamlit App
 # ----------------------------
 
 APP_TITLE = "S.Y.N.Cvoice™"
-APP_TAGLINE = "Tomera Rodgers created a tone-and-safety layer that helps language stay state-based, shame-free and choice-led."
+APP_TAGLINE = "A tone-and-safety layer that helps language stay state-based, shame-free and choice-led."
 TONE_FOOTER = "Invitational. Non-urgent. Body-led. Shame-free."
 
 
@@ -36,7 +37,7 @@ def render_bool_flags(title: str, flags: dict, true_icon="✅", false_icon="▫�
         return
 
     items = list(flags.items())
-    items.sort(key=lambda kv: (not bool(kv[1]), kv[0]))  # True first, then alpha
+    items.sort(key=lambda kv: (not bool(kv[1]), kv[0]))  # True first
 
     cols = st.columns(2)
     half = (len(items) + 1) // 2
@@ -52,7 +53,7 @@ def render_bool_flags(title: str, flags: dict, true_icon="✅", false_icon="▫�
             st.write(f"{true_icon if v else false_icon} `{k}`")
 
 
-def render_top_pairs(title: str, pairs: list, k: int = 5, empty_msg: str = "None detected."):
+def render_top_pairs(title: str, pairs: list, k: int = 6, empty_msg: str = "None detected."):
     """
     Renders a list of (name, score) as neat bullets.
     """
@@ -67,28 +68,29 @@ def render_top_pairs(title: str, pairs: list, k: int = 5, empty_msg: str = "None
         except Exception:
             st.write(f"- {name}")
 
-def main():
-    st.set_page_config(
-        page_title=APP_TITLE,
-        page_icon=str(abs_path("assets", "syncvoice-logo.png")),
-        layout="centered",
-    )
 
-    # Optional: show logo inside the app
-    st.image(
-    str(abs_path("assets", "syncvoice-logo.png")),
-    width=80,
-    )
+def main():
+    # --- Favicon / page icon (must be first Streamlit call) ---
+    logo_path = abs_path("assets", "syncvoice-logo.png")
+    page_icon = str(logo_path) if logo_path.exists() else "🧠"
+
+    st.set_page_config(page_title=APP_TITLE, page_icon=page_icon, layout="centered")
+
+    # --- Header ---
+    if logo_path.exists():
+        st.image(str(logo_path), width=80)
 
     st.title(APP_TITLE)
     st.caption(APP_TAGLINE)
     st.markdown(f"**Tone Rule:** {TONE_FOOTER}")
 
-    # Guardrails viewer
+    # --- Guardrails viewer ---
     with st.expander("View TRB Guardrails (YAML)"):
         st.code(load_guardrails_yaml(), language="yaml")
 
-    # Input
+    st.divider()
+
+    # --- Input ---
     st.subheader("Review copy")
     text = st.text_area(
         "Paste your draft copy here",
@@ -96,30 +98,32 @@ def main():
         placeholder="Paste a caption, landing page section, email copy, or system message…",
     )
 
+    # --- Controls ---
     c1, c2, c3 = st.columns([1, 1, 1])
 
-with c1:
-    threshold = st.slider(
-        "Signal sensitivity",
-        0.20,
-        0.90,
-        0.50,
-        0.05,
-        help=(
-            "Controls how much evidence S.Y.N.Cvoice™ requires before surfacing tone signals or guidance. "
-            "Lower sensitivity surfaces subtle signals. Higher sensitivity means the system speaks less "
-            "and only when signals are very clear. Guardrails always apply."
+    with c1:
+        threshold = st.slider(
+            "Signal sensitivity",
+            0.20,
+            0.90,
+            0.50,
+            0.05,
+            help=(
+                "Controls how much evidence S.Y.N.Cvoice™ requires before surfacing tone signals or guidance. "
+                "Lower sensitivity surfaces subtle signals. Higher sensitivity means the system speaks less "
+                "and only when signals are very clear. Guardrails always apply."
+            ),
         )
-    )
+        st.caption(
+            "Higher sensitivity does not relax rules. "
+            "It simply requires clearer signals before S.Y.N.Cvoice™ offers guidance."
+        )
 
-    st.caption(
-        "Higher sensitivity does not relax rules. "
-        "It simply requires clearer signals before S.Y.N.Cvoice™ offers guidance."
-    )
     with c2:
         show_raw = st.checkbox("Show raw JSON", value=False)
+
     with c3:
-        run = st.button("Run S.Y.N.Cvoice Review", type="primary")
+        run = st.button("Reflect on this copy", type="primary")
 
     if not run:
         st.stop()
@@ -128,7 +132,7 @@ with c1:
         st.warning("Paste some copy first.")
         st.stop()
 
-    # Predict
+    # --- Predict ---
     try:
         out = predict(text, threshold=threshold)
     except Exception as e:
@@ -136,49 +140,47 @@ with c1:
         st.code(str(e))
         st.stop()
 
-    # Summary
+    # --- Result summary ---
     st.subheader("Result")
     st.caption(
-    "S.Y.N.Cvoice™ does not judge quality or intent. "
-    "It reflects tone signals, pressure markers, and choice availability. "
-    "When confidence is low, the system intentionally pauses rather than forcing guidance."
-)
+        "S.Y.N.Cvoice™ does not judge quality or intent. "
+        "It reflects tone signals, pressure markers, and choice availability. "
+        "When confidence is low, it intentionally pauses rather than forcing guidance."
+    )
 
     colA, colB = st.columns(2)
     with colA:
         st.metric(
-    "Confidence bucket",
-    out.get("confidence_bucket", "n/a"),
-    help="Confidence reflects strength of tone signals — not correctness or value judgment."
-)
+            "Confidence bucket",
+            out.get("confidence_bucket", "n/a"),
+            help="Confidence reflects strength of tone signals — not correctness or a value judgment.",
+        )
     with colB:
         conf = out.get("confidence_score", None)
         st.metric("Confidence score", f"{float(conf):.2f}" if conf is not None else "n/a")
 
-    # Routing
+    # --- Routing ---
     st.write("**Routing**")
     st.info(out.get("routing", "n/a"))
 
-    # Tone tags
-    tone_tags = out.get("tone_tags", [])
-    render_top_pairs(
-        "Tone behaviors + tags",
-        tone_tags,
-        k=6,
-        empty_msg="No tone tags above threshold.",
-    )
+    st.divider()
 
-    # Risks
-    risk_flags = out.get("risk_flags", [])
+    # --- Tone tags & risks ---
+    tone_tags = out.get("tone_tags", []) or []
+    risk_flags = out.get("risk_flags", []) or []
+
+    render_top_pairs("Tone behaviors + tags", tone_tags, k=8, empty_msg="No tone tags surfaced at this sensitivity.")
+
     st.write("")
     if risk_flags:
         st.error("Potential risks detected (review before publishing).")
-        render_top_pairs("Risk flags", risk_flags, k=8, empty_msg="")
+        render_top_pairs("Risk flags", risk_flags, k=10, empty_msg="")
     else:
-        st.success("No model-based risk flags detected.")
+        st.success("No risk flags surfaced at this sensitivity.")
 
-    # Deterministic flags (rule + behavior)
     st.divider()
+
+    # --- Deterministic flags ---
     rf = out.get("rule_flags", {}) or {}
     bf = out.get("behavior_flags", {}) or {}
 
@@ -186,35 +188,39 @@ with c1:
     st.write("")
     render_bool_flags("Behavior flags (pressure / urgency signals)", bf, true_icon="✅", false_icon="▫️")
 
-    # Guidance + substitutions
     st.divider()
 
+    # --- Guidance ---
     rewrite_guidance = out.get("rewrite_guidance", []) or []
-    subs = out.get("substitution_suggestions", []) or []
+    subs = out.get("substitution_suggestions", "") or ""
 
     if rewrite_guidance:
         st.write("**Rewrite guidance (S.Y.N.Cvoice™)**")
-        for g in rewrite_guidance:
-            if g:
-                st.write(f"- {g}")
+        # Expect list of bullets
+        if isinstance(rewrite_guidance, list):
+            for g in rewrite_guidance:
+                if g:
+                    st.write(f"- {g}")
+        else:
+            # Fallback
+            st.info(str(rewrite_guidance))
     else:
         st.caption("No guidance returned.")
 
     if subs:
         st.write("**Substitution suggestions (TRB language map)**")
-        for s in subs:
-            if s:
-                st.write(f"- {s}")
+        # subs is a string block
+        st.info(str(subs))
     else:
         st.caption("No substitutions detected.")
 
-    # Final gate
-    st.write("**Final gate question**")
-    st.markdown(
-        f"> {out.get('final_gate_question', 'Does this copy help someone listen to themselves without pressure?')}"
-    )
+    st.divider()
 
-    # Optional raw JSON
+    # --- Final gate ---
+    st.write("**Final gate question**")
+    st.markdown(f"> {out.get('final_gate_question', 'Does this copy help someone listen to themselves without pressure?')}")
+
+    # --- Raw JSON ---
     if show_raw:
         st.divider()
         st.write("**Raw output (JSON)**")
