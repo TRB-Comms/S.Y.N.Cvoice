@@ -69,7 +69,11 @@ def render_top_pairs(title: str, pairs: list, k: int = 5, empty_msg: str = "None
 
 
 def main():
-    st.set_page_config(page_title=APP_TITLE, page_icon="🧠", layout="centered")
+    st.set_page_config(
+    page_title=APP_TITLE,
+    page_icon=str(abs_path("assets", "syncvoice-logo.png")),
+    layout="centered",
+)
 
     st.title(f"🧠 {APP_TITLE}")
     st.caption(APP_TAGLINE)
