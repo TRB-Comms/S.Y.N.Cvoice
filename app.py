@@ -3,11 +3,18 @@ import streamlit as st
 from pathlib import Path
 
 # ==================================================
-# PAGE CONFIG — MUST BE FIRST
+# PATHS (define BEFORE page config)
+# ==================================================
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+LOGO_PATH = ASSETS_DIR / "syncvoice-logo.png"
+
+# ==================================================
+# PAGE CONFIG — MUST BE FIRST STREAMLIT CALL
 # ==================================================
 st.set_page_config(
     page_title="S.Y.N.Cvoice™",
-    page_icon="syncvoice-logo.png",
+    page_icon=str(LOGO_PATH),  # 👈 MUST be a local file path
     layout="centered",
 )
 
@@ -16,13 +23,6 @@ st.set_page_config(
 # ==================================================
 from src.predict import predict
 from src.utils import abs_path
-
-# ==================================================
-# PATHS
-# ==================================================
-BASE_DIR = Path(__file__).resolve().parent
-ASSETS_DIR = BASE_DIR / "assets"
-LOGO_PATH = ASSETS_DIR / "syncvoice-logo.png"
 
 # ==================================================
 # APP COPY
