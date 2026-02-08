@@ -1,3 +1,22 @@
+import streamlit as st
+
+st.set_page_config(
+    page_title="SYNCvoice",
+    layout="wide"
+)
+
+st.title("S.Y.N.Cvoice™")
+st.subheader("A tone-and-safety layer for state-based, shame-free language")
+
+st.write("""
+This is a live test render.
+If you can see this, the app is loading correctly.
+""")
+
+import json
+from src.predict import predict
+from src.utils import abs_path
+
 import json
 import streamlit as st
 
