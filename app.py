@@ -18,12 +18,6 @@ import json
 from src.predict import predict
 from src.utils import abs_path
 
-import json
-import streamlit as st
-
-from src.predict import predict
-from src.utils import abs_path
-
 
 # ----------------------------
 # S.Y.N.Cvoice™ — Streamlit App
