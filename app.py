@@ -7,7 +7,7 @@ from pathlib import Path
 # ==================================================
 st.set_page_config(
     page_title="S.Y.N.Cvoice™",
-    page_icon="🧠",
+    page_icon="syncvoice-logo.png",
     layout="centered",
 )
 
