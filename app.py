@@ -1,11 +1,12 @@
 import streamlit as st
+from pathlib import Path
 
 # ==================================================
 # PAGE CONFIG — MUST BE FIRST AND ONLY TIME
 # ==================================================
 st.set_page_config(
     page_title="S.Y.N.Cvoice™",
-    page_icon="🧠",
+    page_icon="🧠",  # favicon emoji (logo shown separately)
     layout="centered",
 )
 
@@ -13,6 +14,13 @@ st.set_page_config(
 # SAFE IMPORTS (AFTER PAGE CONFIG)
 # ==================================================
 from src.predict import predict
+
+# ==================================================
+# PATHS
+# ==================================================
+BASE_DIR = Path(__file__).resolve().parent
+ASSETS_DIR = BASE_DIR / "assets"
+LOGO_PATH = ASSETS_DIR / "syncvoice-logo.png"
 
 # ==================================================
 # APP COPY
@@ -28,15 +36,23 @@ TONE_RULE = "Invitational · Non-urgent · Body-led · Shame-free"
 # MAIN APP
 # ==================================================
 def main():
-    # Header
+    # --------------------------------------------------
+    # HEADER (LOGO + TITLE)
+    # --------------------------------------------------
+    if LOGO_PATH.exists():
+        st.image(str(LOGO_PATH), width=96)
+
     st.title(APP_TITLE)
     st.caption(APP_TAGLINE)
     st.markdown(f"**Tone rule:** {TONE_RULE}")
 
     st.divider()
 
-    # Input
+    # --------------------------------------------------
+    # INPUT
+    # --------------------------------------------------
     st.subheader("Review copy")
+
     text = st.text_area(
         "Paste your draft copy here",
         height=200,
@@ -66,9 +82,9 @@ def main():
         st.warning("Paste some copy first.")
         return
 
-    # ==================================================
+    # --------------------------------------------------
     # RUN ANALYSIS
-    # ==================================================
+    # --------------------------------------------------
     try:
         out = predict(text, threshold=threshold)
     except Exception as e:
@@ -76,9 +92,9 @@ def main():
         st.code(str(e))
         return
 
-    # ==================================================
+    # --------------------------------------------------
     # RESULTS
-    # ==================================================
+    # --------------------------------------------------
     st.divider()
     st.subheader("Result")
 
@@ -94,9 +110,9 @@ def main():
     st.write("**Routing**")
     st.info(out.get("routing", "—"))
 
-    # ==================================================
+    # --------------------------------------------------
     # TONE SIGNALS
-    # ==================================================
+    # --------------------------------------------------
     st.write("**Tone signals detected**")
     tones = out.get("tone_tags", [])
     if tones:
@@ -105,9 +121,9 @@ def main():
     else:
         st.caption("No strong tone signals surfaced.")
 
-    # ==================================================
+    # --------------------------------------------------
     # RISK FLAGS
-    # ==================================================
+    # --------------------------------------------------
     risks = out.get("risk_flags", [])
     if risks:
         st.error("Potential risks detected (review before publishing).")
@@ -116,9 +132,9 @@ def main():
     else:
         st.success("No rule-based risks detected.")
 
-    # ==================================================
+    # --------------------------------------------------
     # GUIDANCE
-    # ==================================================
+    # --------------------------------------------------
     st.divider()
     st.subheader("Rewrite guidance")
 
@@ -134,9 +150,9 @@ def main():
         st.write("**Gentler language alternatives**")
         st.info(subs)
 
-    # ==================================================
+    # --------------------------------------------------
     # FINAL GATE
-    # ==================================================
+    # --------------------------------------------------
     st.divider()
     st.markdown(
         f"> **Final gate:** {out.get('final_gate_question', 'Does this copy help someone listen to themselves without pressure?')}"
